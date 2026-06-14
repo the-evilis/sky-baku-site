@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SKY BAKU — азербайджанская и грузинская кухня в Бишкеке</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#faf8f5;color:#2c1810;line-height:1.6}
+a{color:#8b4513;text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+section{padding:70px 0}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 0;background:rgba(250,248,245,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(139,69,19,0.1)}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#8b4513;letter-spacing:1px}
+.nav-links{display:flex;gap:24px;list-style:none;align-items:center}
+.nav-links a{color:#2c1810;font-size:0.85rem;font-weight:500;transition:color .3s}
+.nav-links a:hover{color:#8b4513}
+.nav-cta{background:#8b4513;color:#fff!important;padding:10px 20px;border-radius:4px;font-weight:600;font-size:0.85rem}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.burger span{width:24px;height:2px;background:#8b4513}
+
+/* Hero */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding-top:80px;background:linear-gradient(180deg,#faf8f5 0%,#f5f0e8 100%)}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,8vw,4.5rem);font-weight:700;color:#2c1810;margin-bottom:12px}
+.hero-sub{font-size:1.1rem;color:#6b5b4f;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
+.hero-rating{margin-bottom:28px;font-size:0.9rem;color:#6b5b4f}
+.hero-rating .stars{color:#8b4513;letter-spacing:2px}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-btns .btn{padding:12px 28px;border-radius:4px;font-weight:600;font-size:0.9rem;cursor:pointer;border:none;font-family:'Inter',sans-serif;transition:.3s}
+.btn-primary{background:#8b4513;color:#fff}
+.btn-primary:hover{background:#6b3410}
+.btn-outline{background:transparent;color:#2c1810;border:1px solid rgba(44,24,16,0.2)}
+.btn-outline:hover{border-color:#8b4513;color:#8b4513}
+.hero-info{margin-top:40px;font-size:0.85rem;color:#6b5b4f;display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
+.hero-info span{display:flex;align-items:center;gap:6px}
+
+/* Sections */
+.label{display:inline-block;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#8b4513;font-weight:600;margin-bottom:10px}
+.title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:600;margin-bottom:12px;text-align:center}
+.sub{color:#6b5b4f;text-align:center;max-width:500px;margin:0 auto 40px;font-size:0.95rem}
+
+/* About */
+#about{background:#f5f0e8}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.about-text p{margin-bottom:14px;color:#6b5b4f;line-height:1.7}
+.about-badge{background:#8b4513;color:#fff;padding:28px;border-radius:8px;text-align:center}
+.about-badge .num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:700}
+.about-badge .label{font-size:0.85rem;opacity:0.9;margin-top:4px;color:#fff}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.pill{background:rgba(139,69,19,0.06);border:1px solid rgba(139,69,19,0.12);padding:6px 14px;border-radius:50px;font-size:0.8rem;color:#8b4513}
+
+/* Features */
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.feature-card{background:#fff;border:1px solid rgba(139,69,19,0.08);border-radius:8px;padding:24px;text-align:center;transition:.3s}
+.feature-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(139,69,19,0.06)}
+.feature-card .icon{font-size:2.2rem;margin-bottom:10px}
+.feature-card h4{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:4px}
+.feature-card p{font-size:0.82rem;color:#6b5b4f}
+
+/* Menu */
+#menu{background:#f5f0e8}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.menu-card{background:#fff;border:1px solid rgba(139,69,19,0.08);border-radius:8px;padding:20px;text-align:center;transition:.3s}
+.menu-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(139,69,19,0.06)}
+.menu-card .emoji{font-size:2rem;margin-bottom:6px}
+.menu-card .category{font-size:0.7rem;color:#8b4513;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:3px}
+.menu-card h4{font-family:'Playfair Display',serif;font-size:0.95rem;margin-bottom:3px}
+.menu-card .price{color:#8b4513;font-weight:600;font-size:0.9rem}
+
+/* Reviews */
+.reviews-track{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.reviews-track::-webkit-scrollbar{display:none}
+.review-card{min-width:300px;background:#fff;border:1px solid rgba(139,69,19,0.08);border-radius:8px;padding:24px;flex-shrink:0}
+.review-stars{color:#8b4513;margin-bottom:8px}
+.review-text{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;line-height:1.6;margin-bottom:12px}
+.review-author{font-weight:600;font-size:0.9rem}
+.review-source{font-size:0.8rem;color:#6b5b4f}
+
+/* Booking */
+.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
+.booking-form{display:flex;flex-direction:column;gap:16px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:0.75rem;color:#6b5b4f;text-transform:uppercase;letter-spacing:1px}
+.form-group input,.form-group select,.form-group textarea{background:#fff;border:1px solid rgba(139,69,19,0.12);border-radius:4px;padding:12px;color:#2c1810;font-family:'Inter',sans-serif;outline:none;transition:.3s}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#8b4513}
+.form-group textarea{resize:vertical;min-height:80px}
+.btn-submit{background:#8b4513;border:none;color:#fff;padding:14px 32px;border-radius:4px;font-weight:600;font-size:1rem;cursor:pointer;transition:.3s}
+.btn-submit:hover{background:#6b3410}
+.booking-success{display:none;background:rgba(139,69,19,0.06);border:1px solid #8b4513;border-radius:8px;padding:32px;text-align:center}
+.booking-side h3{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:12px}
+.booking-side p{color:#6b5b4f;margin-bottom:20px}
+.btn-wa{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff;padding:12px 28px;border-radius:4px;font-weight:600}
+
+/* Contacts */
+.contacts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:40px}
+.contact-card{background:#fff;border:1px solid rgba(139,69,19,0.08);border-radius:8px;padding:24px;text-align:center;transition:.3s}
+.contact-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(139,69,19,0.06)}
+.contact-card .icon{font-size:1.6rem;margin-bottom:10px}
+.contact-card h4{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:6px}
+.contact-card p{font-size:0.85rem;color:#6b5b4f;margin-bottom:10px}
+.contact-card a{font-size:0.85rem;color:#8b4513;border-bottom:1px solid transparent;transition:.3s}
+.contact-card a:hover{border-bottom-color:#8b4513}
+.contacts-map{border-radius:8px;overflow:hidden;border:1px solid rgba(139,69,19,0.08);height:300px}
+.contacts-map iframe{width:100%;height:100%;border:0}
+
+/* Footer */
+footer{background:#f0ebe3;border-top:1px solid rgba(139,69,19,0.1);padding:50px 0 24px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px}
+.footer-brand .logo{margin-bottom:12px;display:block}
+.footer-brand p{font-size:0.85rem;color:#6b5b4f;line-height:1.6}
+.footer-col h4{font-family:'Playfair Display',serif;font-size:1rem;color:#8b4513;margin-bottom:16px}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:8px}
+.footer-col a{color:#6b5b4f;font-size:0.85rem;transition:color .3s}
+.footer-col a:hover{color:#8b4513}
+.footer-bottom{border-top:1px solid rgba(139,69,19,0.1);padding-top:20px;display:flex;justify-content:space-between;font-size:0.8rem;color:#6b5b4f;flex-wrap:wrap;gap:12px}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .burger{display:flex}
+  .about-grid,.booking-grid{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:1fr 1fr}
+  .menu-grid{grid-template-columns:1fr 1fr}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .hero-info{flex-direction:column;gap:8px}
+}
+@media(max-width:480px){
+  .features-grid,.menu-grid,.footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="#" class="logo">SKY BAKU</a>
+    <ul class="nav-links">
+      <li><a href="#about">О нас</a></li>
+      <li><a href="#menu">Меню</a></li>
+      <li><a href="#features">Почему мы</a></li>
+      <li><a href="#reviews">Отзывы</a></li>
+      <li><a href="#contacts">Контакты</a></li>
+      <li><a href="#booking" class="nav-cta">Забронировать</a></li>
+    </ul>
+    <div class="burger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="container">
+    <h1 class="hero-title">SKY BAKU</h1>
+    <p class="hero-sub">Азербайджанская и грузинская кухня на крыше Евразии</p>
+    <div class="hero-rating"><span class="stars">★★★★☆</span> 4.3 (Google, 668 оценок) · Сейчас открыто</div>
+    <div class="hero-btns">
+      <a href="#booking" class="btn btn-primary">Забронировать столик</a>
+      <a href="#menu" class="btn btn-outline">Посмотреть меню</a>
+    </div>
+    <div class="hero-info">
+      <span>📍 6 этаж, ТРБЦ Евразия, Бишкек</span>
+      <span>🕐 Пн–Пт 12:00–02:00 · Сб–Вс 11:00–02:00</span>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <span class="label">О ресторане</span>
+        <h2 class="title" style="text-align:left">Панорамный вид на весь город</h2>
+        <div class="about-text">
+          <p>SKY BAKU — это ресто-бар на крыше торгового центра Евразия в самом центре Бишкека. Отсюда открывается захватывающий вид на город, а по вечерам атмосфера наполняется живой музыкой и тёплым светом заката.</p>
+          <p>Меню сочетает лучшие традиции азербайджанской и грузинской кухни — сочный шашлык, ароматные кебабы, хачапури по-аджарски и домашнее вино.</p>
+        </div>
+        <div class="pills">
+          <span class="pill">🌆 Панорамный вид</span>
+          <span class="pill">🎵 Живая музыка</span>
+          <span class="pill">🍖 Шашлык</span>
+          <span class="pill">🍷 Грузинское вино</span>
+        </div>
+      </div>
+      <div class="about-badge">
+        <div class="num">4.3</div>
+        <div class="label">Рейтинг на Google</div>
+        <div style="margin-top:16px">
+          <div class="num" style="font-size:2rem">668</div>
+          <div class="label">отзывов от гостей</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px">
+      <span class="label">Почему мы</span>
+      <h2 class="title">6 причин выбрать SKY BAKU</h2>
+      <p class="sub">Мы создаём атмосферу, которую невозможно забыть</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="icon">🌆</span>
+        <h4>Вид на весь город</h4>
+        <p>Панорамная терраса на 6 этаже — закаты и огни Бишкека</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🎵</span>
+        <h4>Живая музыка</h4>
+        <p>По вечерам — выступления артистов</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🍖</span>
+        <h4>Шашлык на углях</h4>
+        <p>Сочное мясо по старинным рецептам</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🍷</span>
+        <h4>Грузинское вино</h4>
+        <p>Натуральные вина из Грузии</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🥘</span>
+        <h4>Авторская кухня</h4>
+        <p>Хачапури, люля-кебаб, долма</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">👨‍👩‍👧‍👦</span>
+        <h4>Для любого повода</h4>
+        <p>Романтика, друзья, семейный праздник</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px">
+      <span class="label">Меню</span>
+      <h2 class="title">Блюда, которые согревают душу</h2>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="emoji">🍖</div>
+        <div class="category">Гриль</div>
+        <h4>ЛЮЛЯ-КЕБАБ</h4>
+        <div class="price">750 с</div>
+      </div>
+      <div class="menu-card">
+        <div class="emoji">🍖</div>
+        <div class="category">Гриль</div>
+        <h4>ШАШЛЫК ИЗ ГОВЯДИНЫ</h4>
+        <div class="price">890 с</div>
+      </div>
+      <div class="menu-card">
+        <div class="emoji">🍖</div>
+        <div class="category">Гриль</div>
+        <h4>ШАШЛЫК ИЗ КУРИЦЫ</h4>
+        <div class="price">620 с</div>
+      </div>
+      <div class="menu-card">
+        <div class="emoji">🥘</div>
+        <div class="category">Грузинская</div>
+        <h4>ХАЧАПУРИ ПО-АДЖАРСКИ</h4>
+        <div class="price">580 с</div>
+      </div>
+      <div class="menu-card">
+        <div class="emoji">🥟</div>
+        <div class="category">Грузинская</div>
+        <h4>ХИНКАЛИ (6 ШТ)</h4>
+        <div class="price">480 с</div>
+      </div>
+      <div class="menu-card">
+        <div class="emoji">🥘</div>
+        <div class="category">Грузинская</div>
+        <h4>ЧАХОХБИЛИ</h4>
+        <div class="price">720 с</div>
+      </div>
+      <div class="menu-card">
+        <div class="emoji">🍚</div>
+        <div class="category">Азербайджанская</div>
+        <h4>ПЛОВ ПО-БАКИНСКИ</h4>
+        <div class="price">850 с</div>
+      </div>
+      <div class="menu-card">
+        <div class="emoji">🍇</div>
+        <div class="category">Азербайджанская</div>
+        <h4>ДОЛМА</h4>
+        <div class="price">520 с</div>
+      </div>
+      <div class="menu-card">
+        <div class="emoji">🍖</div>
+        <div class="category">Азербайджанская</div>
+        <h4>КЮФТА-БОЗБАШ</h4>
+        <div class="price">680 с</div>
+      </div>
+      <div class="menu-card">
+        <div class="emoji">🍰</div>
+        <div class="category">Десерты</div>
+        <h4>ПАХЛАВА</h4>
+        <div class="price">420 с</div>
+      </div>
+      <div class="menu-card">
+        <div class="emoji">🍷</div>
+        <div class="category">Бар</div>
+        <h4>САПЕРАВИ (БОКАЛ)</h4>
+        <div class="price">480 с</div>
+      </div>
+      <div class="menu-card">
+        <div class="emoji">🫖</div>
+        <div class="category">Бар</div>
+        <h4>АЗЕРБАЙДЖАНСКИЙ ЧАЙ</h4>
+        <div class="price">180 с</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="delivery">
+  <div class="container" style="text-align:center">
+    <span class="label">Доставка</span>
+    <h2 class="title">Не хотите выходить из дома?</h2>
+    <p class="sub">Закажите через Glovo или Яндекс Еда</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px">
+      <a href="#" style="padding:12px 24px;background:#fff;border:1px solid rgba(139,69,19,0.12);border-radius:4px;color:#2c1810;font-weight:500;font-size:0.9rem">🛵 Glovo</a>
+      <a href="#" style="padding:12px 24px;background:#fff;border:1px solid rgba(139,69,19,0.12);border-radius:4px;color:#2c1810;font-weight:500;font-size:0.9rem">🍽️ Яндекс Еда</a>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px">
+      <span class="label">Отзывы</span>
+      <h2 class="title">Что говорят гости</h2>
+    </div>
+    <div class="reviews-track">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">«Потрясающий вид на город, особенно на закате. Шашлык просто божественный, а хачапури по-аджарски — лучший в городе. Обязательно вернёмся!»</div>
+        <div class="review-author">— Айгуль</div>
+        <div class="review-source">Google Maps</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">«Отличное место для романтического ужина. Живая музыка, уютная атмосфера, внимательный персонал. Вино Саперави превзошло ожидания.»</div>
+        <div class="review-author">— Дмитрий</div>
+        <div class="review-source">2ГИС</div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <div class="review-text">«Хороший ресто-бар с панорамным видом. Кебабы сочные, плов ароматный. Цены средние, порции большие. Рекомендую для встречи с друзьями.»</div>
+        <div class="review-author">— Сергей</div>
+        <div class="review-source">Google Maps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px">
+      <span class="label">Бронирование</span>
+      <h2 class="title">Забронировать столик</h2>
+      <p class="sub">Оставьте заявку — мы перезвоним для подтверждения</p>
+    </div>
+    <div class="booking-grid">
+      <div>
+        <form class="booking-form" id="bookingForm">
+          <div class="form-row">
+            <div class="form-group"><label>Ваше имя</label><input type="text" required placeholder="Ваше имя"></div>
+            <div class="form-group"><label>Телефон</label><input type="tel" required placeholder="+996 XXX XXX XXX"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Дата</label><input type="date" required></div>
+            <div class="form-group"><label>Время</label><input type="time" required></div>
+          </div>
+          <div class="form-group">
+            <label>Количество гостей</label>
+            <select>
+              <option>Выберите</option>
+              <option>1 гость</option>
+              <option>2 гостя</option>
+              <option>3 гостя</option>
+              <option>4 гостя</option>
+              <option>5 гостей</option>
+              <option>6+ гостей</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-submit">Отправить заявку</button>
+        </form>
+        <div class="booking-success" id="bookingSuccess">
+          <div style="font-size:2.5rem;margin-bottom:12px">✅</div>
+          <h3 style="font-family:'Playfair Display',serif;color:#8b4513;margin-bottom:8px">Заявка отправлена!</h3>
+          <p style="color:#6b5b4f">Мы скоро свяжемся с вами.</p>
+        </div>
+      </div>
+      <div class="booking-side">
+        <h3>Свяжитесь с нами</h3>
+        <p>Предпочитаете забронировать по телефону или через WhatsApp? Мы на связи ежедневно с 11:00 до 02:00.</p>
+        <a href="https://wa.me/996550996996" target="_blank" class="btn-wa">💬 Написать в WhatsApp</a>
+        <div style="margin-top:24px;padding:20px;background:#fff;border-radius:8px;border:1px solid rgba(139,69,19,0.08)">
+          <p style="color:#8b4513;font-weight:600;margin-bottom:4px">📞 +996 550 996 996</p>
+          <p style="color:#6b5b4f;font-size:0.85rem">6 этаж, ТРБЦ Евразия · Бишкек</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacts">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:40px">
+      <span class="label">Контакты</span>
+      <h2 class="title">Как нас найти</h2>
+    </div>
+    <div class="contacts-grid">
+      <div class="contact-card">
+        <span class="icon">📍</span>
+        <h4>Адрес</h4>
+        <p>6 этаж<br>ТРБЦ Евразия<br>Бишкек, Кыргызстан</p>
+        <a href="https://maps.google.com/?q=Sky+Baku+Eurasia+Bishkek" target="_blank">Маршрут</a>
+      </div>
+      <div class="contact-card">
+        <span class="icon">📞</span>
+        <h4>Телефон</h4>
+        <p>+996 550 996 996</p>
+        <a href="tel:+996550996996">Позвонить</a>
+      </div>
+      <div class="contact-card">
+        <span class="icon">🕐</span>
+        <h4>Часы работы</h4>
+        <p>Пн–Пт: 12:00–02:00<br>Сб–Вс: 11:00–02:00</p>
+      </div>
+      <div class="contact-card">
+        <span class="icon">📸</span>
+        <h4>Instagram</h4>
+        <p>@sky.baku.restobar.kg</p>
+        <a href="https://instagram.com/sky.baku.restobar.kg" target="_blank">Подписаться</a>
+      </div>
+      <div class="contact-card">
+        <span class="icon">💬</span>
+        <h4>WhatsApp</h4>
+        <p>Быстрая связь</p>
+        <a href="https://wa.me/996550996996" target="_blank">Написать</a>
+      </div>
+    </div>
+    <div class="contacts-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2924.5!2d74.6119!3d42.8741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDLCsDUyJzI2LjgiNiA3NMKwMzYnNDIuOCJF!5e0!3m2!1sru!2skg!4v1" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">SKY BAKU</a>
+        <p>Ресто-бар на крыше Евразии в Бишкеке. Панорамный вид, живая музыка, кавказская кухня.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="#about">О нас</a></li>
+          <li><a href="#menu">Меню</a></li>
+          <li><a href="#features">Почему мы</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="tel:+996550996996">+996 550 996 996</a></li>
+          <li><a href="https://instagram.com/sky.baku.restobar.kg">@sky.baku.restobar.kg</a></li>
+          <li><a href="https://wa.me/996550996996">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Часы</h4>
+        <ul>
+          <li>Пн–Пт: 12:00–02:00</li>
+          <li>Сб–Вс: 11:00–02:00</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SKY BAKU</span>
+      <span>Сайт разработан <a href="https://fountaine.ai" target="_blank">Fountaine AI Studio</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('bookingForm').addEventListener('submit',function(e){e.preventDefault();this.style.display='none';document.getElementById('bookingSuccess').style.display='block'});
+const dateInput=document.querySelector('input[type="date"]');if(dateInput){dateInput.min=new Date().toISOString().split('T')[0]}
+</script>
+</body>
+</html>
